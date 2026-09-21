@@ -1,0 +1,16 @@
+[project]
+name = "pretzelforce"
+version = "0.1.0"
+description = "A Salesforce code-to-production agent pipeline, built to learn agent architecture."
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.4.0",
+    "python-dotenv>=1.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

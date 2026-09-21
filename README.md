@@ -1,26 +1,51 @@
-# Churro Force
+# PretzelForce
 
-> One-line description of what this project does.
+> A Salesforce code-to-production agent pipeline, built to learn agent architecture.
+
+A git diff of Salesforce metadata goes in. A deploy comes out. Five stages, each one its own
+agent with its own loop, tools, and system prompt.
+
+```
+git diff ──▶ 1. change analysis ──▶ 2. test selection + run ──▶ 3. validation deploy
+                                                                       │
+                                          5. final deploy + log ◀── 4. human approval
+```
+
+This is a learning project: the explanations are the deliverable. Start at
+**[docs/](docs/README.md)**.
 
 ## Status
 
-Early setup — no stack chosen yet.
+Step 1 of 7 — the reusable agent harness is built and its offline checks pass.
+See the [build status table](docs/README.md#build-status).
 
 ## Getting started
 
 ```sh
-git clone <repo-url>
-cd "Churro Force"
+git clone https://github.com/HenryLop/pretzelforce.git
+cd pretzelforce
+pip install -e .
+cp .env.example .env          # then add your ANTHROPIC_API_KEY
+python -m pretzel.demo_harness # offline checks, no API key needed
 ```
+
+Add `--live` to exercise the loop against the real API (costs a few cents).
 
 ## Layout
 
 ```
 .
-├── CLAUDE.md      # notes for Claude Code sessions
-├── README.md
-└── src/           # source (empty for now)
+├── CLAUDE.md                 # notes for Claude Code sessions
+├── docs/                     # the wiki — one page per build step
+├── pyproject.toml
+└── src/pretzel/
+    ├── harness/              # the reusable agent loop every stage runs on
+    └── demo_harness.py       # smoke test
 ```
+
+## Requirements
+
+Python 3.12+, an Anthropic API key, and the `sf` CLI authed to a sandbox for stages 2–5.
 
 ## License
 
