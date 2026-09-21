@@ -13,12 +13,15 @@ from .agent import (
     AgentRefused,
     AgentResult,
     AgentSpec,
+    BudgetExceeded,
     HarnessError,
     IterationCapExceeded,
     OutputTruncated,
     Usage,
     run_agent,
 )
+from .cost import usage_cost_usd
+from .scripted import ScriptedClient, text_turn, tool_turn
 from .tools import (
     MAX_TOOL_RESULT_CHARS,
     RunContext,
@@ -34,14 +37,19 @@ __all__ = [
     "AgentRefused",
     "AgentResult",
     "AgentSpec",
+    "BudgetExceeded",
     "HarnessError",
     "IterationCapExceeded",
     "OutputTruncated",
     "RunContext",
+    "ScriptedClient",
     "Tool",
     "ToolCall",
     "ToolRegistry",
     "Usage",
     "object_schema",
     "run_agent",
+    "text_turn",
+    "tool_turn",
+    "usage_cost_usd",
 ]

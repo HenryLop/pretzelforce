@@ -1,0 +1,22 @@
+{
+  "summary": "Grants View All and Modify All on Account to the Sales User permission set.",
+  "components": [
+    {
+      "path": "force-app/main/default/permissionsets/Sales_User.permissionset-meta.xml",
+      "type": "PermissionSet",
+      "name": "Sales_User",
+      "change": "modified",
+      "risk": "high",
+      "reason": "Bypasses the Private sharing model on Account for every holder."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "warn",
+      "file": "force-app/main/default/permissionsets/Sales_User.permissionset-meta.xml",
+      "line": 9,
+      "message": "Modify All Records on Account (and View All, line 11) overrides the Private sharing model: every Sales User can read and edit every account.",
+      "fix": "Revert both flags to false. If a team needs wider access, use a sharing rule or a separate, narrowly assigned permission set, approved by the org owner."
+    }
+  ]
+}

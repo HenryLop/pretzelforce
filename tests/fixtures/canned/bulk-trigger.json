@@ -1,0 +1,22 @@
+{
+  "summary": "Rewrites AccountTrigger to count contacts per account with a query inside the loop over Trigger.new.",
+  "components": [
+    {
+      "path": "force-app/main/default/triggers/AccountTrigger.trigger",
+      "type": "ApexTrigger",
+      "name": "AccountTrigger",
+      "change": "modified",
+      "risk": "high",
+      "reason": "SOQL per record hits the 100-query limit on bulk loads."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "block",
+      "file": "force-app/main/default/triggers/AccountTrigger.trigger",
+      "line": 3,
+      "message": "SOQL inside a loop over Trigger.new: a data load of more than 100 accounts throws System.LimitException.",
+      "fix": "Query once before the loop: SELECT AccountId, COUNT(Id) FROM Contact WHERE AccountId IN :Trigger.newMap.keySet() GROUP BY AccountId, then read counts from a Map. Also move the logic into AccountService."
+    }
+  ]
+}

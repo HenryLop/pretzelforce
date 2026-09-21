@@ -1,0 +1,22 @@
+{
+  "summary": "AccountService now sets a hardcoded record type Id on accounts without a region.",
+  "components": [
+    {
+      "path": "force-app/main/default/classes/AccountService.cls",
+      "type": "ApexClass",
+      "name": "AccountService",
+      "change": "modified",
+      "risk": "medium",
+      "reason": "Record type Ids differ between sandbox and production."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "block",
+      "file": "force-app/main/default/classes/AccountService.cls",
+      "line": 6,
+      "message": "Hardcoded record type Id '0125e000000AbCdAAK' breaks team rule 2 (\"No hardcoded record IDs anywhere\") and will point at nothing in production.",
+      "fix": "Resolve it by developer name: Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Partner').getRecordTypeId()."
+    }
+  ]
+}
