@@ -22,7 +22,7 @@ Because it's a learning project, explanations are a deliverable: every step gets
 - Model: `claude-opus-5` via `anthropic` >= 1.4.0 (adaptive thinking, effort per stage)
 - Salesforce: `sf` CLI 2.149.9
 - Storage: SQLite (stdlib `sqlite3`)
-- Test runner: none yet — `demo_harness` is the smoke test
+- Test runner: `pytest` (offline, canned model responses); `demo_harness` is the harness smoke test
 - Lint / format: none yet
 
 ## Commands
@@ -32,6 +32,8 @@ Because it's a learning project, explanations are a deliverable: every step gets
 | Install         | `pip install -e .`                     |
 | Smoke (offline) | `python -m pretzel.demo_harness`        |
 | Smoke (live)    | `python -m pretzel.demo_harness --live` |
+| Tests (offline) | `python -m pytest`                     |
+| Review (offline)| `pretzel review --repo <sfdx> --base main --head <branch>` |
 | List orgs       | `sf org list`                          |
 
 ## Conventions

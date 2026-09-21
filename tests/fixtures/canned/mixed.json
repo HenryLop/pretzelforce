@@ -1,0 +1,60 @@
+{
+  "summary": "Housekeeping: renames the Account Sync flow, removes the unused oldBanner LWC and the Invoice object, adds a Partner record type.",
+  "components": [
+    {
+      "path": "force-app/main/default/objects/Invoice__c/Invoice__c.object-meta.xml",
+      "type": "CustomObject",
+      "name": "Invoice__c",
+      "change": "deleted",
+      "risk": "high",
+      "reason": "Deleting an object deletes its data; confirm nothing depends on it."
+    },
+    {
+      "path": "force-app/main/default/flows/Account_Sync.flow-meta.xml",
+      "type": "Flow",
+      "name": "Account_Sync",
+      "change": "deleted",
+      "risk": "medium",
+      "reason": "Replaced by Account_Sync_V2; the old flow is removed."
+    },
+    {
+      "path": "force-app/main/default/flows/Account_Sync_V2.flow-meta.xml",
+      "type": "Flow",
+      "name": "Account_Sync_V2",
+      "change": "added",
+      "risk": "low",
+      "reason": "Same logic as the flow it replaces."
+    },
+    {
+      "path": "force-app/main/default/classes/Imaginary.cls",
+      "type": "ApexClass",
+      "name": "Imaginary",
+      "change": "added",
+      "risk": "low",
+      "reason": "The model invented this one; the merge must drop it."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "info",
+      "file": "force-app/main/default/flows/Account_Sync_V2.flow-meta.xml",
+      "line": 4,
+      "message": "The label still says Account Sync.",
+      "fix": "Update the label so the two versions are distinguishable in Setup."
+    },
+    {
+      "severity": "warn",
+      "file": "force-app/main/default/classes/DoesNotExist.cls",
+      "line": 1,
+      "message": "A finding on a file that doesn't exist.",
+      "fix": "The merge must drop it."
+    },
+    {
+      "severity": "info",
+      "file": "force-app/main/default/flows/Account_Sync_V2.flow-meta.xml",
+      "line": 999,
+      "message": "A finding with a line past the end of the file.",
+      "fix": "The merge keeps it without a line."
+    }
+  ]
+}

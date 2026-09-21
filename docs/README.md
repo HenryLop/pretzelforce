@@ -16,13 +16,15 @@ git diff ──▶ 1. change analysis ──▶ 2. test selection + run ──�
 | 00 | [Architecture](00-architecture.md) | The pipeline, decisions locked, roadmap |
 | 01 | [The agent loop](01-the-agent-loop.md) | The reusable harness every stage runs on — the *why* |
 | 01a | [The harness, line by line](01a-harness-line-by-line.md) | Every meaningful line of `tools.py` and `agent.py`, the concept behind it, a worked message trace, and exercises |
+| 02 | [PR review](02-pr-review.md) | `pretzel review`: diff → components → manifests, references, one judged pass with structured outputs, the US$ cap |
+| — | [Product brief](product-brief.md) | Why, what and how; supersedes the five-stage picture above until 00 is rewritten |
 
 ## Build status
 
 | Step | Component | Concept it demonstrates | Status |
 | --- | --- | --- | --- |
 | 1 | Harness (`src/pretzel/harness/`) | The agent loop, tool dispatch | ✅ built |
-| 2 | Stage 1 — change analysis | System prompt quality, structured outputs | ⬜ not started |
+| 2 | PR review (`src/pretzel/review/`) | Structured outputs, code/AI boundary, cost caps | ✅ built (offline) |
 | 3 | Stage 2 — test selection + run | Sub-agents, context isolation | ⬜ not started |
 | 4 | Stage 3+4 — validation deploy, approval | Human-in-the-loop | ⬜ not started |
 | 5 | Stage 5 — final deploy + log | Irreversible actions, audit trail | ⬜ not started |

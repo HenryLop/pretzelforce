@@ -1,5 +1,8 @@
 # 00 — Architecture
 
+> **Partly superseded** by the [product brief](product-brief.md) (2026-09-21): PretzelForce is now a
+> Bitbucket release helper, CI/CD is in scope, and approval is the merge. This page is rewritten later.
+
 ## What this project is
 
 A five-stage pipeline that takes a git diff of Salesforce metadata and produces a deploy.
@@ -62,7 +65,7 @@ in a PR. In-repo `docs/` keeps an explanation and the code it explains in the sa
 | Step | Builds | Concept it teaches | Status |
 | --- | --- | --- | --- |
 | 1 | Harness — the reusable loop | Agent loop, tool dispatch | ✅ [built](01-the-agent-loop.md) |
-| 2 | Stage 1: change analysis | System prompt quality, structured outputs | ⬜ |
+| 2 | PR review: change analysis + delta manifest | Structured outputs, code/AI boundary | ✅ [built](02-pr-review.md) |
 | 3 | Stage 2: test selection + `sf apex run test` | Sub-agents, context isolation | ⬜ |
 | 4 | Stage 3+4: validation deploy, approval gate | Human-in-the-loop | ⬜ |
 | 5 | Stage 5: real deploy + run log | Irreversible actions, audit trail | ⬜ |

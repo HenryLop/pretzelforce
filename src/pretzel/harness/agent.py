@@ -21,6 +21,7 @@ from typing import Any, Sequence
 import anthropic
 from dotenv import load_dotenv
 
+from .cost import usage_cost_usd
 from .tools import RunContext, Tool, ToolCall, ToolRegistry
 
 load_dotenv()
@@ -50,6 +51,10 @@ class AgentRefused(HarnessError):
 
 class OutputTruncated(HarnessError):
     """The model hit `max_tokens` mid-answer, so the transcript is unusable."""
+
+
+class BudgetExceeded(HarnessError):
+    """The run's cumulative cost passed `AgentSpec.max_cost_usd`; nothing more was sent."""
 
 
 @dataclass
@@ -88,6 +93,12 @@ class AgentSpec:
     # Anthropic's default guidance for claude-opus-5: route around a classifier refusal
     # server-side instead of returning one. Set False to drop the beta endpoint.
     refusal_fallbacks: bool = True
+    # Structured outputs: when set, the model's final text is constrained to this JSON
+    # Schema (`output_config.format`). Tool calls still happen normally before it.
+    output_schema: dict[str, Any] | None = None
+    # Hard spending cap for one run, checked after every call. None means "no cap",
+    # which is only acceptable for offline runs against a scripted client.
+    max_cost_usd: float | None = None
 
 
 @dataclass
@@ -100,16 +111,22 @@ class AgentResult:
     usage: Usage
     tool_calls: list[ToolCall]
     iteration_usage: list[Usage] = field(default_factory=list)
+    cost_usd: float = 0.0
 
 
 def run_agent(
     spec: AgentSpec,
-    user_input: str,
+    user_input: str | list[dict[str, Any]],
     ctx: RunContext | None = None,
     *,
     client: anthropic.Anthropic | None = None,
 ) -> AgentResult:
-    """Drive one agent to completion and return its transcript plus accounting."""
+    """Drive one agent to completion and return its transcript plus accounting.
+
+    `user_input` is a string, or a list of content blocks when the caller needs more
+    control, e.g. a `cache_control` breakpoint on a large first message that every
+    iteration of the loop will resend.
+    """
     ctx = ctx or RunContext(run_id=uuid.uuid4().hex[:12], workdir=Path.cwd())
     client = client or anthropic.Anthropic()
     registry = ToolRegistry(spec.tools)
@@ -125,9 +142,22 @@ def run_agent(
         )
         usage.add(response.usage)
         per_iteration.append(Usage.of(response.usage))
+        cost = usage_cost_usd(usage, spec.model)
         ctx.logger.debug(
-            "%s iter %d: stop_reason=%s", spec.name, iteration, response.stop_reason
+            "%s iter %d: stop_reason=%s cost=$%.4f",
+            spec.name,
+            iteration,
+            response.stop_reason,
+            cost,
         )
+
+        # The cap is checked before looking at what the model said: once the money is
+        # spent past the ceiling, no further call goes out, whatever the model wanted.
+        if spec.max_cost_usd is not None and cost > spec.max_cost_usd:
+            raise BudgetExceeded(
+                f"{spec.name}: ${cost:.4f} spent after {iteration} call(s), over the "
+                f"${spec.max_cost_usd:.2f} cap"
+            )
 
         # `stop_reason` is the control signal - not the text, not the presence of tool
         # blocks. Branching on anything else is the classic way to write a loop that
@@ -158,6 +188,7 @@ def run_agent(
                 usage=usage,
                 tool_calls=calls,
                 iteration_usage=per_iteration,
+                cost_usd=cost,
             )
 
         # stop_reason == "tool_use"
@@ -208,6 +239,11 @@ def _request_kwargs(
         "output_config": {"effort": spec.effort},
         "messages": list(messages),
     }
+    if spec.output_schema is not None:
+        kwargs["output_config"]["format"] = {
+            "type": "json_schema",
+            "schema": spec.output_schema,
+        }
     if registry.specs:
         kwargs["tools"] = registry.specs
     if spec.refusal_fallbacks:

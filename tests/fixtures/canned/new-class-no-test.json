@@ -1,0 +1,22 @@
+{
+  "summary": "Adds DiscountCalc, a small pricing helper, with no test class.",
+  "components": [
+    {
+      "path": "force-app/main/default/classes/DiscountCalc.cls",
+      "type": "ApexClass",
+      "name": "DiscountCalc",
+      "change": "added",
+      "risk": "medium",
+      "reason": "Untested pricing logic; also 0% coverage for RunSpecifiedTests."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "block",
+      "file": "force-app/main/default/classes/DiscountCalc.cls",
+      "line": 1,
+      "message": "Breaks team rule 1 (\"Every new Apex class ships with a test class named <Class>Test\"): no DiscountCalcTest exists, and the class would have 0% coverage.",
+      "fix": "Add DiscountCalcTest covering apply() with a normal discount, 0% and 100%."
+    }
+  ]
+}

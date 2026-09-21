@@ -1,0 +1,22 @@
+{
+  "summary": "Deletes the Account field Legacy_Code__c. The active Flow Account_Sync still writes to it, so the deploy will fail until the Flow is updated.",
+  "components": [
+    {
+      "path": "force-app/main/default/objects/Account/fields/Legacy_Code__c.field-meta.xml",
+      "type": "CustomField",
+      "name": "Account.Legacy_Code__c",
+      "change": "deleted",
+      "risk": "high",
+      "reason": "Still referenced by the active Flow Account_Sync."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "block",
+      "file": "force-app/main/default/flows/Account_Sync.flow-meta.xml",
+      "line": 9,
+      "message": "Flow Account_Sync assigns Legacy_Code__c, which this PR deletes. Deleting a field an active Flow references fails the deploy.",
+      "fix": "Remove the Copy_Legacy assignment from Account_Sync (or deactivate the Flow) in this same PR, then delete the field."
+    }
+  ]
+}
