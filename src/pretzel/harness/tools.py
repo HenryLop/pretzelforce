@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Sequence
 
-log = logging.getLogger("churro.harness")
+log = logging.getLogger("pretzel.harness")
 
 # A tool result that dwarfs the rest of the conversation is a context-management
 # problem, not a feature. Truncate loudly rather than silently blowing the window.

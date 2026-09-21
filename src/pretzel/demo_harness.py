@@ -2,8 +2,8 @@
 
 Run it two ways:
 
-    python -m churro.demo_harness            # offline checks only (no API key needed)
-    python -m churro.demo_harness --live     # + a real run against claude-opus-5
+    python -m pretzel.demo_harness            # offline checks only (no API key needed)
+    python -m pretzel.demo_harness --live     # + a real run against claude-opus-5
 
 The offline half proves the mechanical invariants - tool_use_id round-trips, errors
 become results instead of exceptions, strict schemas are enforced. The live half proves
@@ -22,7 +22,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from churro.harness import (
+from pretzel.harness import (
     AgentSpec,
     IterationCapExceeded,
     RunContext,

@@ -1,5 +1,5 @@
 [project]
-name = "churro-force"
+name = "pretzelforce"
 version = "0.1.0"
 description = "A Salesforce code-to-production agent pipeline, built to learn agent architecture."
 requires-python = ">=3.12"

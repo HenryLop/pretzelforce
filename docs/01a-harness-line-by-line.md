@@ -3,8 +3,8 @@
 > Companion to [01 — The agent loop](01-the-agent-loop.md). That page is the *why*. This one
 > walks every meaningful line of the two source files and names the concept behind it.
 >
-> Read with the files open: [tools.py](../src/churro/harness/tools.py) ·
-> [agent.py](../src/churro/harness/agent.py)
+> Read with the files open: [tools.py](../src/pretzel/harness/tools.py) ·
+> [agent.py](../src/pretzel/harness/agent.py)
 
 ---
 
@@ -15,9 +15,9 @@
 where = ["src"]
 ```
 
-**src layout.** The package lives at `src/churro/` rather than `churro/` at the repo root. The
+**src layout.** The package lives at `src/pretzel/` rather than `pretzel/` at the repo root. The
 reason is not taste: with a root-level package, Python's automatic "current directory is on
-`sys.path`" behavior means `import churro` silently picks up the *source tree* whether or not
+`sys.path`" behavior means `import pretzel` silently picks up the *source tree* whether or not
 the package is installed. With src layout it cannot — you must actually install it. So
 `pip install -e .` failing is a loud error instead of a mystery that appears only in CI.
 

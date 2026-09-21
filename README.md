@@ -1,4 +1,4 @@
-# Churro Force
+# PretzelForce
 
 > A Salesforce code-to-production agent pipeline, built to learn agent architecture.
 
@@ -22,11 +22,11 @@ See the [build status table](docs/README.md#build-status).
 ## Getting started
 
 ```sh
-git clone https://github.com/HenryLop/churro-force.git
-cd churro-force
+git clone https://github.com/HenryLop/pretzelforce.git
+cd pretzelforce
 pip install -e .
 cp .env.example .env          # then add your ANTHROPIC_API_KEY
-python -m churro.demo_harness # offline checks, no API key needed
+python -m pretzel.demo_harness # offline checks, no API key needed
 ```
 
 Add `--live` to exercise the loop against the real API (costs a few cents).
@@ -38,7 +38,7 @@ Add `--live` to exercise the loop against the real API (costs a few cents).
 ├── CLAUDE.md                 # notes for Claude Code sessions
 ├── docs/                     # the wiki — one page per build step
 ├── pyproject.toml
-└── src/churro/
+└── src/pretzel/
     ├── harness/              # the reusable agent loop every stage runs on
     └── demo_harness.py       # smoke test
 ```

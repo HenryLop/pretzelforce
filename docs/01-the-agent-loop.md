@@ -1,6 +1,6 @@
 # 01 — The agent loop
 
-> **Step 1.** Built: `src/churro/harness/`. Verified: `python -m churro.demo_harness`.
+> **Step 1.** Built: `src/pretzel/harness/`. Verified: `python -m pretzel.demo_harness`.
 
 ## What we built
 
@@ -8,8 +8,8 @@ A reusable harness with three public pieces:
 
 | Piece | File | What it is |
 | --- | --- | --- |
-| `run_agent()` | [agent.py](../src/churro/harness/agent.py) | The loop. ~90 lines, and every stage runs on it. |
-| `Tool` / `ToolRegistry` | [tools.py](../src/churro/harness/tools.py) | One capability, and the dispatcher that executes it. |
+| `run_agent()` | [agent.py](../src/pretzel/harness/agent.py) | The loop. ~90 lines, and every stage runs on it. |
+| `Tool` / `ToolRegistry` | [tools.py](../src/pretzel/harness/tools.py) | One capability, and the dispatcher that executes it. |
 | `AgentSpec` / `RunContext` | both | What makes a stage different; what a handler is handed. |
 
 ## Why it exists architecturally
@@ -150,8 +150,8 @@ and a tool's own definition is where that hook belongs.*
 
 ```powershell
 pip install -e .
-python -m churro.demo_harness           # offline: 7/7 passing
-python -m churro.demo_harness --live    # needs ANTHROPIC_API_KEY
+python -m pretzel.demo_harness           # offline: 7/7 passing
+python -m pretzel.demo_harness --live    # needs ANTHROPIC_API_KEY
 ```
 
 Offline (no API key, no cost) — **all passing**:

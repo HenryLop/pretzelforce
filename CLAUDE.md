@@ -1,4 +1,4 @@
-# Churro Force
+# PretzelForce
 
 ## What this is
 
@@ -14,7 +14,7 @@ Because it's a learning project, explanations are a deliverable: every step gets
 - Windows 11, PowerShell 5.1 is the primary shell.
   - No `&&` / `||` chaining. Use `;` or `if ($?) { ... }`.
   - No ternary, `??`, or `?.` operators.
-- The project path contains a space (`C:\Users\LENOVO\Churro Force`) — always quote paths in shell commands.
+- The project path contains a space (`C:\Users\LENOVO\PretzelForce`) — always quote paths in shell commands.
 
 ## Stack
 
@@ -31,8 +31,8 @@ Because it's a learning project, explanations are a deliverable: every step gets
 | Task            | Command                                |
 | --------------- | -------------------------------------- |
 | Install         | `pip install -e .`                     |
-| Smoke (offline) | `python -m churro.demo_harness`        |
-| Smoke (live)    | `python -m churro.demo_harness --live` |
+| Smoke (offline) | `python -m pretzel.demo_harness`        |
+| Smoke (live)    | `python -m pretzel.demo_harness --live` |
 | List orgs       | `sf org list`                          |
 
 ## Conventions

@@ -43,7 +43,7 @@ write at end. Conflating them is a common design mistake; keeping them apart mak
 distinction between "observability" and "memory" concrete.
 
 **Docs live in the repo, not a GitHub Wiki.** A GitHub Wiki is a separate git repo
-(`churro-force.wiki.git`). It bypasses the branch protection on `main` and cannot be reviewed
+(`pretzelforce.wiki.git`). It bypasses the branch protection on `main` and cannot be reviewed
 in a PR. In-repo `docs/` keeps an explanation and the code it explains in the same commit.
 
 ## Stack
