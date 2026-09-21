@@ -14,7 +14,6 @@ Because it's a learning project, explanations are a deliverable: every step gets
 - Windows 11, PowerShell 5.1 is the primary shell.
   - No `&&` / `||` chaining. Use `;` or `if ($?) { ... }`.
   - No ternary, `??`, or `?.` operators.
-- The project path contains a space (`C:\Users\LENOVO\PretzelForce`) — always quote paths in shell commands.
 
 ## Stack
 
